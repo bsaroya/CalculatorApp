@@ -1,0 +1,46 @@
+{% extends "calculator/base.html" %}
+
+{% block content %}
+    <h1 class="mb-4">IPv4 Subnet Calculator with VLSM</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                
+                <div class="mb-3">
+                    {{ form.network.label_tag }}
+                    {{ form.network }}
+                    {% if form.network.errors %}
+                        <div class="text-danger">{{ form.network.errors }}</div>
+                    {% endif %}
+                    <small class="form-text text-muted">Example: 192.168.1.0/24</small>
+                </div>
+                
+                <div class="mb-3">
+                    {{ form.host_requirements.label_tag }}
+                    {{ form.host_requirements }}
+                    {% if form.host_requirements.errors %}
+                        <div class="text-danger">{{ form.host_requirements.errors }}</div>
+                    {% endif %}
+                    <small class="form-text text-muted">Comma-separated list of host requirements (e.g., 50,20,10)</small>
+                </div>
+                
+                <div class="mb-3">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="text-danger">{{ form.email.errors }}</div>
+                    {% endif %}
+                    <small class="form-text text-muted">Optional - to receive results by email</small>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Calculate</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

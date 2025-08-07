@@ -1,0 +1,59 @@
+{% extends "calculator/base.html" %}
+
+{% block content %}
+    <h1 class="mb-4">Subnet Calculation Results</h1>
+
+    {% if email_sent %}
+        <div class="alert alert-success mb-4">
+            Results have been sent to your email address.
+        </div>
+    {% endif %}
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Base Network: {{ network }}</h5>
+        </div>
+    </div>
+
+    {% for subnet in subnets %}
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>Subnet {{ forloop.counter }}</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Subnet (with prefix length)</th>
+                        <td>{{ subnet.subnet }}</td>
+                    </tr>
+                    <tr>
+                        <th>Network Address</th>
+                        <td>{{ subnet.network_address }}</td>
+                    </tr>
+                    <tr>
+                        <th>Broadcast Address</th>
+                        <td>{{ subnet.broadcast_address }}</td>
+                    </tr>
+                    <tr>
+                        <th>Subnet Mask</th>
+                        <td>{{ subnet.subnet_mask }}</td>
+                    </tr>
+                    <tr>
+                        <th>First Usable Host</th>
+                        <td>{{ subnet.first_host }}</td>
+                    </tr>
+                    <tr>
+                        <th>Last Usable Host</th>
+                        <td>{{ subnet.last_host }}</td>
+                    </tr>
+                    <tr>
+                        <th>Number of Usable Hosts</th>
+                        <td>{{ subnet.usable_hosts }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    {% endfor %}
+
+    <a href="{% url 'subnet_calculator' %}" class="btn btn-primary">New Calculation</a>
+{% endblock %}
